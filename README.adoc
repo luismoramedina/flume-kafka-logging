@@ -1,6 +1,11 @@
 = Flume kafka logging
 
+Simple java app that logs data into a kafka. Also, It contanis configuration to proceess data with a flume agent
+
+NOTE: tested with flume 1.7.0 version
+
 == Run all
+
 === Run docker kafka
 
 docker run -p 2181:2181 -p 9092:9092 --name mykafka --env ADVERTISED_HOST=localhost --env ADVERTISED_PORT=9092 spotify/kafka
@@ -9,7 +14,27 @@ docker run -p 2181:2181 -p 9092:9092 --name mykafka --env ADVERTISED_HOST=localh
 
 mvn exec:java
 
+this send a message to kafka on localhost, topic 'test'
+
 === Check messages
 
 docker exec -it mykafka /bin/bash
 kafka-console-consumer.sh --zookeeper localhost:2181 --topic test --from-beginning
+
+=== Connect the flume agent
+
+NOTE: first you must install flume 'wget http://www-eu.apache.org/dist/flume/1.7.0/apache-flume-1.7.0-bin.tar.gz'
+
+./flume-ng agent -n tier1 -c conf -f src/main/resources/flume.conf
+
+OR
+
+./flume-ng agent -n tier1 -c conf -f src/main/resources/flume.conf -Dlog4j.debug -C src/main/resources
+
+for debug purposes
+
+src/main/resources/log4j.properties is used to debug the flume agent
+
+== TODO
+
+- make a docker compose with kafka + flume agent

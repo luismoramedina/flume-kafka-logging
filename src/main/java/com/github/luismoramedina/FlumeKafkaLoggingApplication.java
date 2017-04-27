@@ -5,10 +5,10 @@ import org.apache.logging.log4j.LogManager;
 
 public class FlumeKafkaLoggingApplication {
 
-	static final Logger logger = LogManager.getLogger(FlumeKafkaLoggingApplication.class.getName());
+	private static final Logger logger = LogManager.getLogger(FlumeKafkaLoggingApplication.class.getName());
 
 	public static void main(String[] args) {
-		logger.info("Hello kafka");
+		logger.info("{ \"message\" : \"Hello kafka\" }");
 	}
 
 }
