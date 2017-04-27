@@ -1,0 +1,15 @@
+= Flume kafka logging
+
+== Run all
+=== Run docker kafka
+
+docker run -p 2181:2181 -p 9092:9092 --name mykafka --env ADVERTISED_HOST=localhost --env ADVERTISED_PORT=9092 spotify/kafka
+
+=== Run app
+
+mvn exec:java
+
+=== Check messages
+
+docker exec -it mykafka /bin/bash
+kafka-console-consumer.sh --zookeeper localhost:2181 --topic test --from-beginning
